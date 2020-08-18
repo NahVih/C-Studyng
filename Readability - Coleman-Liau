@@ -1,0 +1,54 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main(void)
+{
+    int se = 0;
+    int w = 0;
+    int l = 0;
+    int n = 0;
+
+    string s = get_string("Text: ");
+    while (s[n] != '\0')
+    {
+        // this if is to count letter
+        if (s[n] >= 'A' && s[n] <= 'z')
+        {
+            l++;
+        }
+        // this if is to count word
+        if (s[n] == ' ')
+        {
+            w++;
+        }
+        // this if is to count sentence
+        if (s[n] == '.' || s[n] == '!' || s[n] == '?')
+        {
+            se++;
+        }
+        n++;
+    }
+
+    // use the float la and float final to do the Coleman-Liau formula
+    float la = (float)l/w*100*0.0588-(float)se/w*100*0.296;
+
+    float final = la - 15.8;
+
+    if (la - 15.8 < 1) // this if is to print the grade
+    {
+        printf("Before Grade 1\n");
+    }
+    else
+    {
+        if (la - 15.8 >= 16)
+        {
+            printf("Grade 16+\n");
+        }
+        else
+        {
+            printf("Grade %i\n", (int)round(final)); // it is important to use function round (math.h)
+        }
+    }
+}
